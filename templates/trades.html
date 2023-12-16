@@ -1,0 +1,69 @@
+<!-- this comman head code for all files  -->
+{% include 'partials/head-code.html' %}
+
+
+<body>
+  <!-- this is topbar code -->
+  {% include 'partials/topbar.html' %}
+
+
+  <div class=" m-0 mt-5 w-100">
+
+    <!-- this is the left sidebar code  -->
+    {% include 'partials/sidebar.html' %}
+
+    <!-- this is the main contant of webpage  -->
+    <div class=" container-fluid bg-secondary-color text-bg-black  p-3  " style="margin-left: 12%; width:88%">
+
+
+      <div class="card shadow mt-3 p-3 " style="min-height: 87vh;">
+
+        <table class="table rounded">
+          <tr class="bg-secondary text-light rounded">
+            <th class="fw-normal">Action</th>
+            <th class="fw-normal">Instrument</th>
+            <th class="fw-normal">Entrt DateTime</th>
+            <th class="fw-normal">Exit DateTime</th>
+            <th class="fw-normal">Open Price</th>
+            <th class="fw-normal">Close Price</th>
+            <th class="fw-normal">Qty</th>
+            <th class="fw-normal">PnL</th>
+            <th class="fw-normal">Rating</th>
+            <th class="fw-normal">Details</th>
+          </tr>
+        
+
+          {% for trades in get_trades %}
+          <tr class="trades">
+            <td>{{trades.action}}</td>
+            <td>{{trades.symbol}}</td>
+            <td>{{trades.entry_datetime}}</td>
+            <td>{{trades.exit_datetime}}</td>
+            <td>{{trades.entry_price}}</td>
+            <td>{{trades.exit_price}}</td>
+            <td>{{trades.quantity}}</td>
+            {% if trades.pnl >= 0 %}
+              <td style="color: #00BF63; font-weight: 900;">{{trades.pnl}}</td>
+              {% else %}
+              <td style="color: rgb(255, 0, 0);font-weight: 900;">{{trades.pnl}}</td>
+
+            {% endif %}
+            <td>{{trades.trade_rating}}/10</td>
+            <td>Details</td>
+            <td>
+              <button class="bg-transparent border-0" name="delete_trade_btn">
+                <i class="bi bi-trash-fill delete_icon"></i></td>
+              </button>
+          </tr>
+          {% endfor %}
+
+
+
+        </table>
+      </div>
+    </div>
+
+
+</body>
+
+</html>

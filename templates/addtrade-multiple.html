@@ -1,0 +1,59 @@
+<!-- this comman head code for all files  -->
+{% include 'partials/head-code.html' %}
+
+
+<body>
+    <!-- this is topbar code -->
+    {% include 'partials/topbar.html' %}
+
+
+    <div class=" m-0 mt-5 w-100">
+
+        <!-- this is the left sidebar code  -->
+        {% include 'partials/sidebar.html' %}
+
+        <!-- this is the main contant of webpage  -->
+        <div class=" container-fluid bg-secondary-color text-bg-black  p-3  " style="margin-left: 12%; width:88%">
+
+
+            <div class="card shadow mt-2 pt-3 p-3" style="min-height: 90vh;">
+
+                <a href="/one_more">
+                    <button>+</button>
+                </a>
+
+                <!-- <form class="row" action="/newtrade" method="post">
+                    {% csrf_token %}
+
+                    {% for i in count %}
+                    <h1>mohit</h1>
+                    {%endfor%}
+
+
+
+                    
+                </form> -->
+                <h2>Upload an Excel File</h2>
+
+                <form action="/upload_excel" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="data_file" accept=".csv">
+                    <button type="submit">Upload</button>
+                </form>
+
+            </div>
+
+        </div>
+
+        <script>
+//            $('.star-rating').on('click', function() {
+//   var rating = $(this).find('.active').length;
+//   // Do something with the rating value.
+// });
+
+
+        </script>
+
+</body>
+
+</html>

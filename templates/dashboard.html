@@ -1,0 +1,198 @@
+<!-- this comman head code for all files  -->
+{% include 'partials/head-code.html' %}
+
+
+<body>
+  <!-- this is topbar code -->
+  {% include 'partials/topbar.html' %}
+
+
+  <div class=" m-0 mt-5 w-100 " style="min-height: 93vh;">
+
+    <!-- this is the left sidebar code  -->
+    {% include 'partials/sidebar.html' %}
+
+    <!-- this is the main contant of webpage  -->
+    <div class=" container-fluid bg-secondary-color text-bg-black  p-3  "
+      style="margin-left: 12%; width:88%; min-height: 93vh;">
+
+      {% comment %} the code of upper statics {% endcomment %}
+      <div class="row p-1 pt-0">
+
+        <div class="col mb-sm-0 p-1">
+          <div class="card shadow-sm px-2  ">
+            <div class="card-body ps-4 py-2 ">
+              {% if daily_pnl < 0 %} <h1 class="fs-3 custom-green mt-3"
+                style="font-family: 'Oswald', sans-serif; color: red;">
+                {{ currency_symbol }}{{ neg_daily_pnl }}
+                </h1>
+                {% else %}
+                <h1 class="fs-3 custom-green mt-3" style="font-family: 'Oswald', sans-serif;">
+                  {{ currency_symbol }}{{ daily_pnl }}
+                </h1>
+                {% endif %}
+
+
+
+                <h5 class=" m-0" style="font-size: 15px;">Net PnL(Daily)</h5>
+                <p style=" font-size: 13px; " class="text-secondary">12/08/2003</p>
+            </div>
+          </div>
+        </div>
+        <div class="col mb-sm-0 p-1">
+          <div class="card shadow-sm px-2 ">
+            <div class="card-body ps-4 py-2 ">
+              {% if monthly_pnl >= 0 %}
+              <h1 class="fs-3 custom-green mt-3  " style="font-family: 'Oswald', sans-serif;">
+                {{currency_symbol}}{{monthly_pnl}}</h1>
+              {% else %}
+
+              <h1 class="fs-3 custom-green mt-3  " style="font-family: 'Oswald', sans-serif; color: red;">
+                {{currency_symbol}}{{neg_monthly_pnl}}</h1>
+              {% endif %}
+
+              <h5 class=" m-0" style="font-size: 15px;">Net PnL(Monthly)</h5>
+              <p style=" font-size: 13px; " class="text-secondary">Current Month</p>
+            </div>
+          </div>
+        </div>
+        <div class="col mb-sm-0 p-1">
+          <div class="card shadow-sm px-2 ">
+            <div class="card-body ps-4 py-2 ">
+
+              <h1 class="fs-3 custom-green mt-3  " style="font-family: 'Oswald', sans-serif;">{{total_wins}}</h1>
+
+
+              <h5 class=" m-0" style="font-size: 15px;">Total Wins</h5>
+              <p style=" font-size: 13px; " class="text-secondary">Lifetime</p>
+            </div>
+          </div>
+        </div>
+        <div class="col mb-sm-0 p-1">
+          <div class="card shadow-sm px-2 ">
+            <div class="card-body ps-4 py-2 ">
+              <h1 class="fs-3 custom-green mt-3  " style="font-family: 'Oswald', sans-serif; color: red;">{{total_loss}}
+              </h1>
+              <h5 class=" m-0" style="font-size: 15px;">Total Losses</h5>
+              <p style=" font-size: 13px; " class="text-secondary">Lifetime</p>
+            </div>
+          </div>
+        </div>
+        <div class="col mb-sm-0 p-1">
+          <div class="card shadow-sm px-2 ">
+            <div class="card-body ps-4 py-2 ">
+              {% if net_pnl < 0 %} <h1 class="fs-3 custom-green mt-3  "
+                style="font-family: 'Oswald', sans-serif; color: red;">{{currency_symbol}}{{neg_net_pnl}}</h1>
+                {% else %}
+                <h1 class="fs-3 custom-green mt-3  " style="font-family: 'Oswald', sans-serif;">
+                  {{currency_symbol}}{{net_pnl}}</h1>
+                {% endif %}
+                <h5 class=" m-0" style="font-size: 15px;">Net PnL</h5>
+                <p style=" font-size: 13px; " class="text-secondary">LifeTime</p>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      {% comment %} weekly and monthly graph {% endcomment %}
+      <div class="row p-1">
+        <div class="col mb-sm-0 p-1">
+          <div class="card shadow-sm px-2 ">
+            <div class="card-body ps-3 py-2 ">
+              <h5 class=" my-2 fs-6">Weekly PnL</h5>
+              <hr class="hr" style="margin: 2% -4%;" />
+              <canvas id="weeklyChart"></canvas>
+
+            </div>
+          </div>
+        </div>
+        <div class="col mb-sm-0 p-1">
+          <div class="card shadow-sm px-2 ">
+            <div class="card-body ps-3 py-2 ">
+              <h5 class=" my-2 fs-6">Monthly PnL</h5>
+              <hr class="hr" style="margin: 2% -4%;" />
+              <canvas id="monthlyChart"></canvas>
+
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+    </div>
+
+    <script>
+      const weeklyChart = document.getElementById('weeklyChart');
+      var weeklydata = {{ weekly_pnl_list| safe }}
+
+      
+      var colors = weeklydata.map(value => value > 0 ? 'green' : 'red');
+
+      new Chart(weeklyChart, {
+        type: 'bar',
+        data: {
+          labels: ['Monday', 'Tuesday', 'Wednesday', 'Thusday', 'Friday', 'Saturday', 'Sunday'],
+          datasets: [{
+            label: 'Weekly PnL',
+            data: weeklydata,
+            borderWidth: 1,
+            backgroundColor: colors, 
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+        
+      });
+
+      const monthlyChart = document.getElementById('monthlyChart');
+      var monthly_pnl_list = {{ monthly_pnl_list| safe }}
+      var date_list = [{% for date in monthly_date_list %}'{{ date|date:"d" }}',{% endfor %}];
+      new Chart(monthlyChart, {
+        type: 'line',
+        data: {
+          labels: date_list,
+          datasets: [{
+            label:" {{current_month_name}}",
+            data: monthly_pnl_list,
+            tension: 0.5,
+            pointRadius: 5, // Set the point radius to 0 to hide the data points
+            borderWidth: 0,
+            pointHoverRadius: 0 ,// Set the point hover radius to 0 to hide the data points on hover
+
+
+
+            fill: {
+              target: 'origin',
+              above: '#00BF63',   // Area will be red above the origin
+              below: 'red'    // And blue below the origin
+            }
+
+            
+          }]
+        },
+        options: {
+          scales: {
+            x: {
+              ticks: {
+                maxRotation: 0,  // Disable label rotation
+                autoSkipPadding: 30,  // Increase the gap between labels
+              }
+            },
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    </script>
+
+</body>
+
+</html>

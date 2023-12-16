@@ -1,0 +1,43 @@
+<!-- this comman head code for all files  -->
+{% include 'partials/head-code.html' %}
+
+
+<body>
+  <!-- this is topbar code -->
+  {% include 'partials/topbar.html' %}
+
+
+  <div class=" m-0 mt-5 w-100">
+
+    <!-- this is the left sidebar code  -->
+    {% include 'partials/sidebar.html' %}
+
+    <!-- this is the main contant of webpage  -->
+    <div class=" container-fluid bg-secondary-color text-bg-black  p-3  " style="margin-left: 12%; width:88%; height: 100%;">
+        
+      <form action="">
+      <div class="form-floating row gap-2">
+          <textarea class="form-control shadow col-1" style="width: 91%;height: 89vh; resize: none; "  placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+          <label for="floatingTextarea">Write any Note here...</label>
+          <div class="col-1" ;>
+
+            <button class="row w-100 p-1 btn shadow bg-custom-blue my-2">Edit</button>
+            <button class="row w-100 p-1 btn shadow bg-custom-blue" type="submit"> Save</button>
+          </div>
+
+          
+        </div>
+        </form>
+
+
+
+
+
+    </div>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,161 @@
+<!-- this comman head code for all files  -->
+{% include 'partials/head-code.html' %}
+
+
+<body>
+    <!-- this is topbar code -->
+    {% include 'partials/topbar.html' %}
+
+
+    <div class=" m-0 mt-5 w-100 ">
+
+        <!-- this is the left sidebar code  -->
+        {% include 'partials/sidebar.html' %}
+
+        <!-- this is the main contant of webpage  -->
+        <div class=" container-fluid bg-secondary-color text-bg-black  p-3  " style="margin-left: 12%; width:88% ; ">
+
+
+            <div class="card shadow p-3">
+
+                <div id="calendar" style="cursor: pointer; text-decoration: none; color: black;  "></div>
+                <div id="taskPopup" class="modal">
+                    <div class="modal-content">
+
+                        <span class="close ">&times;</span>
+                        <div id="taskList"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Hidden element to store pnl_data -->
+            <div id="pnl-data" style="display: none;">{{ pnl_data|safe }}</div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var calendarEl = document.getElementById('calendar');
+
+                var usersData = JSON.parse("{{data|escapejs}}"); // get data from views file 
+
+                for (var i = 0; i < usersData.length; i++) {  // this code will reduce one day in every date due to error
+                    var originalDate = new Date(usersData[i].date);
+                    originalDate.setDate(originalDate.getDate() - 1);
+                    usersData[i].date = originalDate.toISOString().split('T')[0];
+                }
+
+
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    height: "85vh",
+                    initialView: 'dayGridMonth',
+                    dayCellContent: function (arg) {
+                        var tradingEntry = usersData.find(function (entry) {
+                            return entry.date === arg.date.toISOString().split('T')[0];
+                        });
+
+
+                        if (tradingEntry) {
+                            var cellContent = document.createElement('div');
+                            cellContent.classList.add('cell-content');
+
+                            var dayNumber = document.createElement('div');
+                            dayNumber.textContent = arg.dayNumberText;
+                            dayNumber.classList.add('day-number');
+
+                            var profitText = document.createElement('div');
+                            profitText.textContent = '$' + tradingEntry.profit.toFixed(2);
+                            profitText.classList.add('profit');
+
+                            cellContent.appendChild(dayNumber);
+                            cellContent.appendChild(profitText);
+
+                            if (tradingEntry.profit > 0) {
+                                cellContent.classList.add('positive');
+                            } else if (tradingEntry.profit < 0) {
+                                cellContent.classList.add('negative');
+                            }
+                            return { html: cellContent.outerHTML };
+                        }
+                    },
+
+
+                    dateClick: function (info) {
+                        openTaskPopup(info.dateStr);
+                    },
+
+                    events: '/get_trades_for_date/', // URL to fetch events
+                    // Add a custom function to switch to year view
+
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    }
+
+                });
+
+
+
+                calendar.render();
+                var cellElements = document.querySelectorAll('.fc-day');
+                cellElements.forEach(function (cellElement) {
+                    cellElement.style.height = '80px'; // Adjust the height as needed
+                });
+
+
+                // Show task popup
+                function openTaskPopup(date) {
+                    $.ajax({
+                        url: `/get_trades_for_date/${date}/`,
+                        type: 'GET',
+                        success: function (data) {
+                            $('#taskList').html(data);
+                            $('#taskPopup').show();
+                            $('body').addClass('blurred-background'); // Add the blurred background class
+
+                        }
+                    });
+                }
+
+                // Close task popup
+                function closeTaskPopup() {
+                    $('#taskPopup').hide();
+                    $('body').removeClass('blurred-background'); // Remove the blurred background class
+
+                }
+
+                // Close task popup when clicking outside of it
+                $(document).mouseup(function (e) {
+                    var popup = $('#taskPopup');
+                    if (!popup.is(e.target) && popup.has(e.target).length === 0) {
+                        closeTaskPopup();
+                    }
+                });
+
+                // Close task popup when clicking the close button
+                $('.close').click(function () {
+                    closeTaskPopup();
+                });
+            });
+
+        </script>
+
+
+
+
+
+</body>
+
+</html>

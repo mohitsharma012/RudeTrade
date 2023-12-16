@@ -1,0 +1,140 @@
+html,
+body {
+  /* height: 100%; */
+  width: 100%;
+  background-color: #ebecf0;
+}
+* {
+  font-family: "Roboto Slab", serif;
+}
+.dropdown-toggle::after {
+  border: 0px;
+}
+.col-1-5 {
+  width: 12%;
+}
+.h-10 {
+  height: 5%;
+}
+::-webkit-scrollbar {
+  background-color: black;
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(89, 108, 112);
+}
+.bg-custom-blue {
+  background-color: #3ba0fc;
+}
+.custom-green {
+  color: #00bf63;
+}
+.sidebar-item:hover {
+  /* background-color: #2294ff; */
+  border: solid black 1px;
+}
+.addtrade-btn:hover {
+  background-color: rgb(235, 244, 245);
+  border: none;
+}
+.delete_icon {
+  color: red;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.trades:hover {
+  background-color: #3ba0fc;
+}
+
+.rating {
+  /* display: -webkit-inline-box; */
+  width: 100%;
+  margin: auto;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  float: right;
+  cursor: pointer;
+  color: #ccc;
+  transition: color 0.3s;
+}
+
+.rating label:before {
+  content: "\2605";
+  font-size: 35px;
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+  color: #00d0ff;
+  transition: color 0.3s;
+}
+
+/* custom_calendar_styles.css */
+.fc-toolbar {
+  /* background-color: #333; */
+  color: rgb(0, 0, 0);
+  margin-bottom: 0.5em;
+}
+
+.modal {
+  width: 82%;
+  margin: 2% 0% 0% 10%;
+}
+.modal-content {
+  min-height: 92%;
+}
+.close {
+  width: 19px;
+  font-size: 35px;
+  margin: -10px 13px;
+  cursor: pointer;
+}
+.positive {
+  background-color: #56d956;
+  color: rgb(0, 0, 0);
+}
+
+.negative {
+  background-color: #ff5a5a;
+  color: rgb(0, 0, 0);
+}
+
+.cell-content {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.day-number {
+  font-size: 18px;
+}
+
+.profit {
+  font-size: 23px;
+}
+
+.blurred-background {
+  pointer-events: none; /* Allow clicks to go through the background to the elements beneath */
+}
+.fc-daygrid-day-number {
+  color: #000000;
+  text-decoration: none;
+}
+.fc-col-header-cell-cushion {
+  color: #000000;
+  text-decoration: none;
+}
+.fc .fc-daygrid-day-frame:hover {
+  background-color: #3ba0fc;
+  border: 2px solid black;
+}
