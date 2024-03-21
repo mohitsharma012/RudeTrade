@@ -3,68 +3,77 @@
 
 
 <body>
-  <h1>sign up </h1>
-
-
-  {% if messages %}
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor %}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-  {% endif %}
+  <main class="container">
 
 
 
 
-  <form action="/signupaction" method="post">
-    {% csrf_token %}
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">First name</label>
-      <input type="text" class="form-control" id="exampleInputEmail1 " name="Fname" aria-describedby="emailHelp">
+    {% if messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {% for message in messages %}
+      <p>{{ message }}</p>
+      {% endfor %}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Last name</label>
-      <input type="text" class="form-control" id="exampleInputEmail1" name="Lname" aria-describedby="emailHelp">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" name="pwd">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">CPassword</label>
-      <input type="password" class="form-control" name="Cpwd">
-    </div>
-    <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-  <h1>login</h1>
-  <form action="/loginaction" method="post">
-    {% csrf_token %}
+    {% endif %}
 
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" class="form-control" name="email" aria-describedby="emailHelp" value="stayer.mohit@gmail.com">
-      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+
+
+    <div class="row gap-5 m-5">
+
+      <form action="/signupaction" class="col " method="post">
+        <h2 class="text-center">Create New Account </h2>
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">First name</label>
+          <input type="text" class="form-control" id="exampleInputEmail1 " name="Fname" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Last name</label>
+          <input type="text" class="form-control" id="exampleInputEmail1" name="Lname" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" class="form-control" name="pwd">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">CPassword</label>
+          <input type="password" class="form-control" name="Cpwd">
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Create new Account</button>
+      </form>
+      <form action="/loginaction" class="col" method="post">
+        {% csrf_token %}
+        <h2 class="text-center">login </h2>
+
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email address</label>
+          <input type="email" class="form-control" name="email" aria-describedby="emailHelp"
+            value="stayer.mohit@gmail.com">
+          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" class="form-control" name="pwd" value="123">
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">LogIn</button>
+      </form>
+
     </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" name="pwd" value="123" >
-    </div>
-    <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+
+  </main>
 
 </body>
 
