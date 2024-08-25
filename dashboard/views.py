@@ -10,7 +10,11 @@ from datetime import datetime ,timedelta
 def dashboard(request):
 
     userid = request.session.get('userid')
-    current_date = datetime.today().date()
+
+    # setting defalut date for testing 
+    # current_date = datetime.today().date()
+    current_date = datetime(2024,5,14)
+
 
 
     userinfo =  rudeusers.objects.filter(id = userid)
@@ -62,7 +66,8 @@ def dashboard(request):
     
 
     # this code is for monthly and weakly graps values
-    today = datetime.now().date()
+    # today = datetime.now().date()
+    today = datetime(2024,5,14)
 
     start_of_week = today - timedelta(days=today.weekday())
     end_of_week = start_of_week + timedelta(days=6)
@@ -79,7 +84,9 @@ def dashboard(request):
         weekly_pnl_list.append(day_pnl)
     
 
-    current_month = datetime.now().month
+    # current_month = datetime.now().month
+    current_month = datetime(2024,5,14).month
+
     days_in_current_month = calendar.monthrange(datetime.now().year, current_month)[1]
     current_month_start = timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0).date()
 

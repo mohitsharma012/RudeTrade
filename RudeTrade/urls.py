@@ -27,6 +27,8 @@ from calender.views import *
 # from trades.urls import path, include
 from django.urls import path
 
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -54,4 +56,4 @@ urlpatterns = [
     path('signupaction',signupaction),
     path('loginaction',loginaction),
     path('updateuserdetails',views.updateuserdetails),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
