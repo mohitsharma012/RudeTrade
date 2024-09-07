@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-=m*h5*rdyg+(5%d9$#tp!nxi+3j@)ojk$ezhb*8cihrwummt6t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
+
 
 
 
@@ -75,7 +77,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'RudeTrade.wsgi.application'
+WSGI_APPLICATION = 'RudeTrade.wsgi.app'
+
 
 
 # Database

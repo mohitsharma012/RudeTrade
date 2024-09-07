@@ -1,10 +1,4 @@
 {
-    "builds": [
-      {
-        "src": "RudeTrade/wsgi.py",
-        "use": "@vercel/python"
-      }
-    ],
     "routes": [
       {
         "src": "/(.*)",
@@ -12,4 +6,3 @@
       }
     ]
   }
-  
