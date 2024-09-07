@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'RudeTrade.wsgi.appplication'
+WSGI_APPLICATION = 'RudeTrade.wsgi.application'
 
 
 

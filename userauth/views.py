@@ -3,7 +3,6 @@ from django.shortcuts import redirect
 from django.db import connection
 from django.contrib import messages
 
-import mysql.connector as sql
 
 from userauth.models import rudeusers
 
