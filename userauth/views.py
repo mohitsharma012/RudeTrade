@@ -2,15 +2,9 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db import connection
 from django.contrib import messages
-
-
 from userauth.models import rudeusers
 
-
-
 def index(request):
-
-
     return render(request, 'index.html')
 
 def signupaction(request):
@@ -34,8 +28,6 @@ def signupaction(request):
                 save_user = rudeusers(first_name = Fname, last_name = Lname, user_email =email, user_pass = pwd)
                 save_user.save()
                 messages.success(request, 'Account created sucessfully!')
-
-
             else:
                 messages.success(request, 'Password is not Matching!')
 

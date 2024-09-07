@@ -11,6 +11,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
+
+import os
+
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,23 +88,26 @@ WSGI_APPLICATION = 'RudeTrade.wsgi.application'
 
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+# Get the environment variables
+DATABASE_URL = os.getenv('POSTGRES_URL')
+DATABASE_USER = os.getenv('POSTGRES_USER')
+DATABASE_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+DATABASE_NAME = os.getenv('POSTGRES_DATABASE')
+DATABASE_HOST = os.getenv('POSTGRES_HOST')
+DATABASE_PORT = os.getenv('POSTGRES_PORT')
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'RudeTrade',
-#         'USER': 'root',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#     }
-# }
+# Configure the DATABASES setting
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': DATABASE_NAME,
+        'USER': DATABASE_USER,
+        'PASSWORD': DATABASE_PASSWORD,
+        'HOST': DATABASE_HOST,
+        'PORT': DATABASE_PORT,
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
 
@@ -137,7 +147,6 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
